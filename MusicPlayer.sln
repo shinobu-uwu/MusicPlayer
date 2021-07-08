@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayer.Common", "MusicPlayer.Common\MusicPlayer.Common.csproj", "{53AACA36-CDE2-46C7-89FA-53E0D738EF56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayer.Core", "MusicPlayer.Core\MusicPlayer.Core.csproj", "{ED961C09-9089-4AE6-AEB8-5FD8A2BD608C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53AACA36-CDE2-46C7-89FA-53E0D738EF56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53AACA36-CDE2-46C7-89FA-53E0D738EF56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53AACA36-CDE2-46C7-89FA-53E0D738EF56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53AACA36-CDE2-46C7-89FA-53E0D738EF56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED961C09-9089-4AE6-AEB8-5FD8A2BD608C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED961C09-9089-4AE6-AEB8-5FD8A2BD608C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED961C09-9089-4AE6-AEB8-5FD8A2BD608C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED961C09-9089-4AE6-AEB8-5FD8A2BD608C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
