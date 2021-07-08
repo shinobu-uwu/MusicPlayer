@@ -1,17 +1,16 @@
 using System;
-using System.Collections.Generic;
 using ManagedBass;
 using MusicPlayer.Common;
 
 namespace MusicPlayer.Core
 {
-    public class MusicPlayer
+    public class Player
     {
         private int _currentStream;
         
         public PlayerState State { get; private set; }
         
-        public MusicPlayer()
+        public Player()
         {
             if (!Bass.Init())
                 throw new Exception("Bass failed to intialize");
@@ -19,7 +18,7 @@ namespace MusicPlayer.Core
             State = PlayerState.Paused;
         }
 
-        ~MusicPlayer()
+        ~Player()
         {
             Bass.Free();
         }

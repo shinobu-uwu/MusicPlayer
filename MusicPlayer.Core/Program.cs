@@ -8,7 +8,7 @@ namespace MusicPlayer.Core
     {
         static void Main(string[] args)
         {
-            var player = new MusicPlayer();
+            var player = new Player();
             player.Load(args[0]);
             player.PlayPause();
 
