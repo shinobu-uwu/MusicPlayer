@@ -20,6 +20,10 @@ namespace MusicPlayer.Common
         public static Song GetFromFile(string path)
         {
             var file = File.Create(path);
+            
+            if (file.Tag.AlbumArtists.Length == 0)
+                return new Song(path, file.Tag.Title, file.Tag.Album, "");
+            
             return new Song(path, file.Tag.Title, file.Tag.Album, file.Tag.AlbumArtists[0]);
         }
     }
