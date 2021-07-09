@@ -7,6 +7,7 @@ namespace MusicPlayer.UI
     public class MainForm : Form
     {
         private Player _player = new Player();
+        private Label _currentSong = new Label();
         public MainForm()
         {
             Title = "Music Player";
@@ -18,6 +19,7 @@ namespace MusicPlayer.UI
             {
                 Rows =
                 {
+                    new TableRow(new TableCell(_currentSong)),
                     new TableRow(
                         new TableCell(new Button((sender, e) =>
                         {
@@ -25,6 +27,7 @@ namespace MusicPlayer.UI
                             dialog.ShowDialog(this);
                             _player.Load(dialog.FileName);
                             _player.PlayPause();
+                            _currentSong.Text = $"{_player.CurrentSong.Artist} - {_player.CurrentSong.Title}";
                         }) { Text = "Open" }),
                         new TableCell(new Button((sender, e) =>
                             {
