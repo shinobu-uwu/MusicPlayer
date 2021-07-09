@@ -1,14 +1,13 @@
-using System;
 using TagLib;
 
 namespace MusicPlayer.Common
 {
     public class Song
     {
-        public string Path {get; private set; }
-        public string Title { get; private set; }
-        public string Album { get; private set; }
-        public string Artist { get; private set; }
+        public string Path { get; }
+        public string Title { get; }
+        public string Album { get; }
+        public string Artist { get; }
 
         public Song(string path, string title, string album, string artist)
         {
