@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Eto.Forms;
 using MusicPlayer.Common;
 using MusicPlayer.Core;
@@ -27,6 +29,13 @@ namespace MusicPlayer.UI
                             dialog.ShowDialog(this);
                             _player.Load(dialog.FileName);
                             _player.PlayPause();
+                            
+                            if (_player.CurrentSong.Title == "" || _player.CurrentSong.Artist == "")
+                            {
+                                _currentSong.Text = _player.CurrentSong.Path.Split('/').Last();
+                                return;
+                            }
+
                             _currentSong.Text = $"{_player.CurrentSong.Artist} - {_player.CurrentSong.Title}";
                         }) { Text = "Open" }),
                         new TableCell(new Button((sender, e) =>
