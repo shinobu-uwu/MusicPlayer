@@ -8,8 +8,6 @@ namespace MusicPlayer.Core
     {
         private int _currentStream;
         
-        public Song CurrentSong { get; private set; }
-        
         public PlayerState State { get; private set; }
         
         public Player()
@@ -33,7 +31,6 @@ namespace MusicPlayer.Core
                 throw new Exception("File not supported");
 
             _currentStream = stream;
-            CurrentSong = Song.GetFromFile(path);
         }
 
         public void PlayPause()
