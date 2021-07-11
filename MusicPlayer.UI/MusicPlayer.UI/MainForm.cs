@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Eto.Forms;
 using MusicPlayer.Common;
@@ -8,7 +9,8 @@ namespace MusicPlayer.UI
     public class MainForm : Form
     {
         private Player _player = new Player();
-        private Label _currentSong = new Label();
+        private Song _currentSong;
+        
         public MainForm()
         {
             Title = "Music Player";
@@ -16,43 +18,46 @@ namespace MusicPlayer.UI
         }
 
         private TableLayout BuildContent()
-            => new TableLayout
+        {
+            var layout = new TableLayout();
+
+            var songLabel = new Label();
+            
+            var playPauseButton = new Button((sender, e) =>
             {
-                Rows =
-                {
-                    new TableRow(new TableCell(_currentSong)),
-                    new TableRow(
-                        new TableCell(new Button((sender, e) =>
-                        {
-                            var dialog = new OpenFileDialog { MultiSelect = false };
-                            dialog.ShowDialog(this);
-                            _player.Load(dialog.FileName);
-                            _player.PlayPause();
-                            
-                            if (_player.CurrentSong.Title == "" || _player.CurrentSong.Artist == "")
-                            {
-                                _currentSong.Text = _player.CurrentSong.Path.Split('/').Last();
-                                return;
-                            }
+                _player.PlayPause();
+                ((Button) sender).Text = GetFormattedPlayPause();
+            });
+            playPauseButton.Text = GetFormattedPlayPause();
+            
+            var openButton = new Button((sender, e) =>
+            {
+                var dialog = new OpenFileDialog() { MultiSelect = false };
+                dialog.ShowDialog(this);
+                _player.Load(dialog.FileName);
+                _player.Play();
+                _currentSong = Song.GetFromFile(dialog.FileName);
+                songLabel.Text = GetFormattedSong();
+                playPauseButton.Text = GetFormattedPlayPause();
+            });
+            openButton.Text = "Open";
 
-                            _currentSong.Text = $"{_player.CurrentSong.Artist} - {_player.CurrentSong.Title}";
-                        }) { Text = "Open" }),
-                        new TableCell(new Button((sender, e) =>
-                            {
-                                _player.PlayPause();
-                                var button = (Button) sender;
-                                if (_player.State == PlayerState.Paused)
-                                {
-                                    button.Text = "Play";
-                                    return;
-                                }
+            layout.Rows.Add(new TableRow(songLabel, null));
+            layout.Rows.Add(new TableRow(openButton, playPauseButton, null));
+            layout.Rows.Add(null);
+            
+            return layout;
+        }
 
-                                button.Text = "Pause";
-                            })),
-                        null
-                    ),
-                    null
-                }
-            };
+        private string GetFormattedPlayPause()
+            => _player.State == PlayerState.Playing ? "Pause" : "Play";
+
+        private string GetFormattedSong()
+        {
+            if (_currentSong.Artist == "" || _currentSong.Title == "")
+                return _currentSong.Path.Split('/').Last();
+
+            return $"{_currentSong.Artist} - {_currentSong.Title}";
+        }
     }
 }
