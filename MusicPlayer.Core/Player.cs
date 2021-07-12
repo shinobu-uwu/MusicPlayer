@@ -7,7 +7,7 @@ namespace MusicPlayer.Core
 {
     public class Player
     {
-        private PlayerEngine _playerEngine;
+        private PlayerEngine _playerEngine = new PlayerEngine();
 
         public PlayerState State { get; private set; } = PlayerState.Paused;
         public Song CurrentSong { get; private set; }
