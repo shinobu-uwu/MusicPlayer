@@ -1,36 +1,27 @@
 using System;
 using ManagedBass;
 using MusicPlayer.Common;
+using MusicPlayer.Core.Engine;
 
 namespace MusicPlayer.Core
 {
     public class Player
     {
-        private int _currentStream;
-        
-        public PlayerState State { get; private set; }
-        
-        public Player()
+        private PlayerEngine _playerEngine;
+
+        public PlayerState State { get; private set; } = PlayerState.Paused;
+        public Song CurrentSong { get; private set; }
+
+        public double Volume
         {
-            if (!Bass.Init())
-                throw new Exception("Bass failed to intialize");
-
-            State = PlayerState.Paused;
+            get => Bass.Volume;
+            set => Bass.Volume = value;
         }
-
-        ~Player()
-        {
-            Bass.Free();
-        }
-
+        
         public void Load(string path)
         {
-            var stream = Bass.CreateStream(path);
-
-            if (stream == 0)
-                throw new Exception("File not supported");
-
-            _currentStream = stream;
+           _playerEngine.Load(path);
+           CurrentSong = Song.GetFromFile(path);
         }
 
         public void PlayPause()
@@ -40,20 +31,20 @@ namespace MusicPlayer.Core
                 Pause();
                 return;
             }
-            // Player is paused
+            
             Play();
         }
 
         public void Play()
         {
+            _playerEngine.Play();
             State = PlayerState.Playing;
-            Bass.ChannelPlay(_currentStream);
         }
 
         public void Pause()
         {
+            _playerEngine.Pause();
             State = PlayerState.Paused;
-            Bass.ChannelPause(_currentStream);
         }
     }
 }
